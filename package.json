@@ -1,0 +1,11 @@
+{
+  "name": "agent-grove",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ENSv2 Agent Identity Studio for ETHOnline 2026",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "start": "python3 -m http.server 4173"
+  },
+  "license": "MIT"
+}
