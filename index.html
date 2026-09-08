@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08150f" />
+    <title>Agent Grove — ENSv2 identity studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./publisher.css" />
+  </head>
+  <body>
+    <div class="noise"></div>
+    <main>
+      <nav>
+        <a class="brand" href="#top" aria-label="Agent Grove home"><span class="brand-mark">✦</span> agent grove</a>
+        <div class="nav-links"><a href="#studio">Studio</a><a href="#how">How it works</a><a href="https://docs.ens.domains/ensv2/overview/" target="_blank" rel="noreferrer">ENSv2 ↗</a></div>
+        <button class="wallet-button small" id="connectWallet">Connect wallet</button>
+      </nav>
+
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> Built for ENSv2 · Sepolia</p>
+          <h1>Give every agent<br /><em>a name it can grow into.</em></h1>
+          <p class="lede">Issue durable ENS identities for AI agents, delegate only the records they need, and let every app resolve a real, portable agent profile.</p>
+          <div class="hero-actions"><a href="#studio" class="button primary">Create an agent identity <b>→</b></a><button class="button ghost" id="watchDemo">Watch the 90-sec flow <b>↗</b></button></div>
+          <div class="hero-proof"><div><strong>ENSv2</strong><span>permissioned resolver</span></div><div><strong>Sepolia</strong><span>live resolution</span></div><div><strong>Scoped</strong><span>agent autonomy</span></div></div>
+        </div>
+        <div class="hero-art" aria-label="Illustration of agent identity branches">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+          <div class="root-card"><span class="root-symbol">✦</span><span>grove.eth</span><small>namespace owner</small></div>
+          <div class="branch b1"></div><div class="branch b2"></div><div class="branch b3"></div>
+          <div class="leaf l1"><i></i><b>researcher</b><small>live</small></div>
+          <div class="leaf l2"><i></i><b>treasury</b><small>scoped</small></div>
+          <div class="leaf l3"><i></i><b>support</b><small>live</small></div>
+          <p class="art-caption">A namespace, not a directory.</p>
+        </div>
+      </section>
+
+      <section class="signal-strip"><span>ONCHAIN IDENTITY</span><i></i><span>MINIMUM AUTHORITY</span><i></i><span>COMPOSABLE DISCOVERY</span><i></i><span>REAL ENS RECORDS</span></section>
+
+      <section class="studio-section" id="studio">
+        <div class="section-intro"><p class="eyebrow"><span></span> Identity studio</p><h2>Issue an identity<br />with a <em>purpose.</em></h2><p>Start in guided mode, then switch to your connected ENSv2 namespace for an onchain transaction.</p></div>
+        <div class="studio-shell">
+          <div class="stepper"><button class="step active" data-step="1"><span>01</span>Identity</button><button class="step" data-step="2"><span>02</span>Authority</button><button class="step" data-step="3"><span>03</span>Review</button></div>
+          <div class="studio-main">
+            <div class="mode-row"><div><b>Guided demo</b><span id="modeHint">Preview a functional transaction plan</span></div><label class="switch"><input type="checkbox" id="liveMode" /><span></span></label></div>
+            <form id="identityForm" novalidate>
+              <div class="panel active" data-panel="1">
+                <div class="field"><label for="label">Agent label</label><div class="input-with-suffix"><input id="label" maxlength="32" value="researcher" autocomplete="off" /><span id="agentSuffix">.grove.eth</span></div><small>Letters, numbers, and hyphens only. This becomes the agent's portable name.</small></div>
+                <div class="field"><label for="owner">Agent wallet</label><input id="owner" placeholder="0x… wallet that controls this identity" autocomplete="off" /><small>The subname owner. It may be a smart account or an agent's execution wallet.</small></div>
+                <div class="two-col"><div class="field"><label for="role">Agent role</label><select id="role"><option value="Research scout">Research scout</option><option value="Treasury watcher">Treasury watcher</option><option value="Support concierge">Support concierge</option><option value="Governance delegate">Governance delegate</option></select></div><div class="field"><label for="expiry">Identity term</label><select id="expiry"><option value="31536000">1 year</option><option value="15552000">6 months</option><option value="7776000">3 months</option></select></div></div>
+                <button class="button primary next" type="button" data-next="2">Continue to authority <b>→</b></button>
+              </div>
+              <div class="panel" data-panel="2">
+                <div class="permission-header"><div><h3>What can this agent update?</h3><p>Permissions are expressed as resolver-level record rights, not blanket ownership.</p></div><span class="role-badge" id="permissionCount">2 selected</span></div>
+                <div class="permissions">
+                  <label class="permission"><input type="checkbox" value="com.agent.capabilities" checked /><span class="check"></span><span><b>Capabilities</b><small>Update the services and tools this agent offers</small></span><code>com.agent.capabilities</code></label>
+                  <label class="permission"><input type="checkbox" value="com.agent.endpoint" checked /><span class="check"></span><span><b>Endpoint</b><small>Rotate its A2A, MCP, or x402 endpoint</small></span><code>com.agent.endpoint</code></label>
+                  <label class="permission"><input type="checkbox" value="com.agent.status" /><span class="check"></span><span><b>Operating status</b><small>Publish availability and heartbeat state</small></span><code>com.agent.status</code></label>
+                  <label class="permission"><input type="checkbox" value="description" /><span class="check"></span><span><b>Profile description</b><small>Update its human-readable mission statement</small></span><code>description</code></label>
+                </div>
+                <div class="callout"><b>Why this matters</b><p>ENSv2 Enhanced Access Control lets the parent retain namespace control while an agent updates only the records it needs to operate.</p></div>
+                <div class="form-actions"><button class="back" type="button" data-back="1">← Back</button><button class="button primary next" type="button" data-next="3">Review identity <b>→</b></button></div>
+              </div>
+              <div class="panel" data-panel="3">
+                <div class="review-name"><span class="root-symbol">✦</span><div><small>NEW AGENT IDENTITY</small><h3 id="reviewName">researcher.grove.eth</h3></div><span class="status-dot">ready</span></div>
+                <div class="review-grid"><div><small>OWNER</small><code id="reviewOwner">Connect a wallet or enter one</code></div><div><small>TERM</small><b id="reviewTerm">1 year</b></div><div><small>RESOLVER RIGHTS</small><b id="reviewPermissions">2 record keys</b></div><div><small>NETWORK</small><b>Sepolia</b></div></div>
+                <div class="transaction-preview"><div><span>TRANSACTION PLAN</span><em id="txMode">GUIDED</em></div><ol><li>Register subname in permissioned registry</li><li>Point to a permissioned resolver</li><li>Delegate selected text-record roles</li></ol></div>
+                <div class="form-actions"><button class="back" type="button" data-back="2">← Back</button><button class="button primary" type="submit" id="issueButton">Issue in guided mode <b>→</b></button></div>
+              </div>
+            </form>
+          </div>
+          <aside class="identity-preview"><div class="preview-top"><span>LIVE PREVIEW</span><i></i></div><div class="identity-orb">✦</div><p class="preview-name" id="previewName">researcher.grove.eth</p><p class="preview-role" id="previewRole">Research scout</p><div class="preview-record"><span>com.agent.capabilities</span><code>research, diligence, synthesis</code></div><div class="preview-record"><span>com.agent.endpoint</span><code>https://agent.grove/a2a</code></div><div class="preview-footer"><span>ENSv2 resolver</span><span class="pulse"></span></div></aside>
+        </div>
+      </section>
+
+      <section class="resolve-section" id="resolve">
+        <div><p class="eyebrow"><span></span> Onchain verifier</p><h2>Resolve any ENS name<br />on <em>Sepolia.</em></h2><p>This is a live ENSv2-compatible resolution call, not a mocked identity card.</p></div>
+        <div class="resolver-box"><label for="resolveName">ENS name</label><div><input id="resolveName" value="ur.integration-tests.eth" spellcheck="false" /><button class="button primary" id="resolveButton">Resolve <b>→</b></button></div><p class="resolver-note">Try the ENSv2 test name above, or an ENS name that resolves on Sepolia.</p><div class="resolution-result empty" id="resolutionResult"><span class="result-icon">⌁</span><div><b>Ready to resolve</b><p>The universal resolver will find the active resolver for this name.</p></div></div></div>
+      </section>
+
+      <section class="publisher-section" id="publisher">
+        <div class="publisher-copy"><p class="eyebrow"><span></span> Live record publisher</p><h2>Let an agent keep<br /><em>its own profile current.</em></h2><p>Agent Grove finds the name's active ENSv2 resolver at publish time, batches selected text-record updates, and asks the connected wallet to sign the Sepolia transaction.</p><div class="publisher-note"><span>↗</span><p>Only an account with resolver roles can publish. ENSv2 returns an onchain authorization error when a role is missing.</p></div></div>
+        <form class="publisher-form" id="publisherForm">
+          <div class="publisher-head"><span>AGENT PROFILE RECORDS</span><b>Sepolia · ENSv2</b></div>
+          <div class="field"><label for="profileName">Agent ENS name</label><input id="profileName" placeholder="your-agent.parent.eth" autocomplete="off" /><small>Use a name whose Permissioned Resolver authorizes this wallet to write records.</small></div>
+          <div class="field"><label for="agentEndpoint">Agent endpoint</label><input id="agentEndpoint" placeholder="https://agent.example/a2a" autocomplete="off" /><small>Writes <code>com.agent.endpoint</code>.</small></div>
+          <div class="field"><label for="agentCapabilities">Capabilities</label><input id="agentCapabilities" placeholder="research, diligence, synthesis" autocomplete="off" /><small>Writes <code>com.agent.capabilities</code>.</small></div>
+          <div class="field"><label for="agentStatus">Availability status <span class="optional">optional</span></label><input id="agentStatus" placeholder="available" autocomplete="off" /><small>Writes <code>com.agent.status</code> when supplied.</small></div>
+          <button class="button primary publish-button" type="submit" id="publishButton">Publish records on Sepolia <b>→</b></button>
+          <div class="publish-result" id="publishResult" aria-live="polite"><span>⌁</span><p>Connect a wallet and enter a name you control to publish a real resolver update.</p></div>
+        </form>
+      </section>
+
+      <section class="how-section" id="how"><p class="eyebrow"><span></span> The product thesis</p><h2>Agents need more than a wallet.</h2><div class="how-grid"><article><span>01</span><h3>Names that travel</h3><p>An agent's identity resolves the same way in every wallet, agent directory, and dapp.</p></article><article><span>02</span><h3>Autonomy with edges</h3><p>Scoped resolver permissions allow useful self-updates without handing away the namespace.</p></article><article><span>03</span><h3>Reputation that compounds</h3><p>Agents retain a stable name as their endpoints, capabilities, and relationships evolve.</p></article></div></section>
+
+      <footer><a class="brand" href="#top"><span class="brand-mark">✦</span> agent grove</a><p>Made for ETHOnline 2026 · ENSv2 on Sepolia</p><a href="https://docs.ens.domains/ensv2/tutorial-app-developers/" target="_blank" rel="noreferrer">Built on ENSv2 ↗</a></footer>
+    </main>
+    <dialog id="successDialog"><div class="dialog-icon">✦</div><p class="eyebrow"><span></span> Identity staged</p><h2 id="dialogTitle">researcher.grove.eth</h2><p id="dialogCopy">is ready for its ENSv2 issuance transaction.</p><div class="dialog-records" id="dialogRecords"></div><button class="button primary" id="closeDialog">Back to studio <b>→</b></button></dialog>
+    <dialog id="demoDialog"><button class="dialog-close" id="closeDemo" aria-label="Close">×</button><p class="eyebrow"><span></span> 90-second demo script</p><h2>Agent Grove</h2><ol class="demo-script"><li><b>Problem:</b> agents have wallets, but no portable identity or safely delegated profile controls.</li><li><b>Issue:</b> create <code>researcher.grove.eth</code> under a team-owned ENSv2 namespace.</li><li><b>Delegate:</b> grant only endpoint and capability text-record rights via Enhanced Access Control.</li><li><b>Verify:</b> resolve the identity on Sepolia through the ENS Universal Resolver.</li></ol><button class="button primary" id="tryStudio">Try it now <b>→</b></button></dialog>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
